@@ -1,0 +1,54 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+class StringProcessor {
+    String content;
+    
+    public StringProcessor() throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("C:\\Temp\\input.txt"));
+        StringBuilder sb = new StringBuilder();
+        
+        while(sc.hasNextLine()) {
+            sb.append(sc.nextLine()).append("\n");
+        }
+        sc.close();
+        
+        this.content = sb.toString().trim();
+    }
+    
+    public void processAndSave() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(new File("C:\\Temp\\output.txt"));
+        StringBuilder resultBuilder = new StringBuilder();
+        int wordCount = 0;
+        
+        StringTokenizer tokenizer = new StringTokenizer(content, " \t\n\r.,");
+        
+        while(tokenizer.hasMoreTokens()) {
+            String word = tokenizer.nextToken();
+            if(word.length() > 3) {
+                wordCount++;
+                resultBuilder.append(word).append(" ");
+            }
+        }
+        
+        String result = String.format("Найдено слов длиннее 3 символов: %d\n\n%s", 
+                                     wordCount, resultBuilder.toString().trim());
+        
+        writer.println(result);
+        writer.close();
+    }
+}
+
+public class ekzam {
+    public static void main(String[] args) {
+        try {
+            StringProcessor processor = new StringProcessor();
+            processor.processAndSave();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
