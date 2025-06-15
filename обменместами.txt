@@ -1,1 +1,63 @@
-5 2 8 6 9 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+class ArraySwapper {
+    int N, A, B;
+    int[] arr;
+    
+    public ArraySwapper() throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("C:\\Temp\\and.txt"));
+        this.N = sc.nextInt();
+        this.A = sc.nextInt();
+        this.B = sc.nextInt();
+      
+        this.arr = new int[N];
+        
+        System.out.printf("Индексы для обмена: A=%d, B=%d", A, B);
+        System.out.printf("\nКоличество элементов: %d", N);
+        System.out.printf("\nИсходный массив: ");
+        
+        for(int i = 0; i < N; i++) {
+            arr[i] = sc.nextInt();
+            System.out.printf("%3d", arr[i]);
+        }
+        sc.close();
+    }
+    
+    public void swapElements() {        
+        
+        int temp = arr[A];
+        arr[A] = arr[B];
+        arr[B] = temp;
+        
+        System.out.printf("\nМассив после обмена: ");
+        for(int i = 0; i< N; i++) {
+            System.out.printf("%3d", arr[i]);
+        }
+    }
+    
+    public void saveToFile() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(new File("C:\\Temp\\output.txt"));
+        for(int i = 0; i < N; i++) {
+            writer.print(arr[i] + " ");
+        }
+        writer.close();
+    }
+}
+
+public class ekzam {
+    public static void main(String[] args) {
+        try {
+            ArraySwapper processor = new ArraySwapper();
+            processor.swapElements();
+            processor.saveToFile();
+            
+            System.out.println("\nРезультат записан в файл!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Ошибка: файл не найден!");
+            e.printStackTrace();
+        }
+    }
+}
