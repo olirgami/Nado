@@ -1,0 +1,80 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+
+class Matrix{
+	int h,w;
+	int[][] arr;
+	
+	
+	public Matrix() throws FileNotFoundException{
+		Scanner sc = new Scanner(new File("C:\\Temp\\input.txt"));
+		this.h = sc.nextInt();
+		this.w = sc.nextInt();
+		arr = new int[h][w];
+		System.out.printf("Размер массива: %d %d",h,w);
+		System.out.printf("\nИсходный массив: ");
+		
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j++) {
+				arr[i][j] = sc.nextInt();
+				System.out.printf("%3d",arr[i][j]);
+			}
+                       System.out.println();
+		}
+		sc.close();
+	}
+	
+	public void Zero() throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter(new File("C:\\Temp\\output.txt"));
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j++) {
+				arr[i][i] = 0;
+			}
+		}
+		
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j++) {
+				arr[i][w-1-i] = 0;
+			}
+		}
+
+		System.out.printf("\nМассив: ");
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j++) {
+				System.out.printf("%3d",arr[i][j]);
+			}
+		}
+		
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j++) {
+				writer.print(arr[i][j] + " ");
+			}
+			writer.println();
+		}
+		
+		writer.close();
+	}
+	
+	
+}
+
+public class ekzam {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Matrix pros = new Matrix();
+			pros.Zero();			
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}

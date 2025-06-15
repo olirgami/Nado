@@ -1,0 +1,75 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+class Matrix{
+	int h,w;
+	int[][] arr;
+	
+	public Matrix() throws FileNotFoundException{
+		Scanner sc = new Scanner(new File("C:\\Temp\\input.txt"));
+		this.h = sc.nextInt();
+		this.w = sc.nextInt();
+		this.arr = new int[h][w];
+		
+		System.out.printf("Количестсво элементов: %d  %d",h,w);
+		System.out.printf("\nВаш исходный массив: ");
+		
+		
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j++) {
+				arr[i][j] = sc.nextInt();
+				System.out.printf("%3d",arr[i][j]);
+			}
+                       System.out.println();
+			}
+		sc.close();
+		}
+		
+	
+	
+	public int[] Some() {
+		int max = arr[0][0];
+		int[] index = new int[2];
+		
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j++) {
+				if(arr[i][j]>max) {
+					max = arr[i][j];
+					index[0] = i;	
+					index[1] = j;
+				}
+			}
+			}
+		return index;
+	}
+	
+	public void Save(int[] index) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter(new File("C:\\Temp\\output.txt"));
+		writer.println(index[0] + " " + index[1]);
+		writer.close();
+	}
+}
+
+public class ekzam {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Matrix pros = new Matrix();
+			int[] index = pros.Some();
+			
+			System.out.printf("\nИндекс максимального элемента: ");
+			 System.out.printf("%d %d", index[0], index[1]); 
+			pros.Save(index);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}
+

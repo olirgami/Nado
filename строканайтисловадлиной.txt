@@ -1,0 +1,49 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+class StringProcessor {
+    String content;
+    
+    public StringProcessor() throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("C:\\Temp\\input.txt"));
+        this.content = "";
+        
+        while(sc.hasNextLine()) {
+            content += sc.nextLine() + "\n";
+        }
+        sc.close();
+        
+        if(!content.isEmpty()) {
+            content = content.substring(0, content.length()-1);
+        }
+    }
+    
+    public void processAndSave() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(new File("C:\\Temp\\output.txt"));
+        
+       
+        String[] words = content.split("\\s+");
+        
+        for(String word : words) {
+            if(word.length() > 3) {
+                writer.print(word + " ");
+            }
+        }
+        
+        writer.println();
+        writer.close();
+    }
+}
+
+public class ekzam {
+    public static void main(String[] args) {
+        try {
+            StringProcessor processor = new StringProcessor();
+            processor.processAndSave();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}

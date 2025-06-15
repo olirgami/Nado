@@ -1,0 +1,56 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+class Matrix { 
+    private int[][] matrix;
+    private int height;
+    private int width;
+   
+    public Matrix() throws FileNotFoundException {  
+        Scanner sc = new Scanner(new File("C:\\Temp\\input.txt"));
+        this.height = sc.nextInt();
+        this.width = sc.nextInt();
+        this.matrix = new int[height][width];
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+        sc.close();
+    }
+
+    public int countEvenNumbers() {
+        int count = 0;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (matrix[i][j] % 2 == 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public void saveResultToFile(int result) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter("C:\\Temp\\output.txt");
+        writer.println(result);
+        writer.close();
+    }
+}
+
+public class ekz {
+    public static void main(String[] args) {
+        try {
+            Matrix processor = new Matrix();  
+            int evenCount = processor.countEvenNumbers();
+            
+            processor.saveResultToFile(evenCount);
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}

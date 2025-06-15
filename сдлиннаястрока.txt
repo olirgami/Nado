@@ -1,0 +1,59 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+class StringProcessor {
+    String[] lines;  
+    int lineCount; 
+    
+    public StringProcessor() throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("C:\\Temp\\stringg.txt"));
+        
+        int count = 0;
+        while(sc.hasNextLine()) {
+            sc.nextLine();
+            count++;
+        }
+        
+        this.lineCount = count;
+        this.lines = new String[count];
+        
+        sc.close();
+        sc = new Scanner(new File("C:\\Temp\\stringg.txt"));
+        
+        for(int i = 0; i < count; i++) {
+            lines[i] = sc.nextLine();
+        }
+        sc.close();
+    }
+    
+    public void findLongestLine() throws FileNotFoundException {
+        String longestLine = "";
+
+for (int i = 0; i < lines.length; i++) {
+    String line = lines[i];
+    if (line.length() > longestLine.length()) {
+        longestLine = line;
+    }
+
+
+        }
+        
+        PrintWriter writer = new PrintWriter(new File("C:\\Temp\\output.txt"));
+        writer.println("Самая длинная строка: " + longestLine);
+        writer.println("Длина: " + longestLine.length() + " символов");
+        writer.close();
+    }
+}
+
+public class ekzam {
+    public static void main(String[] args) {
+        try {
+            StringProcessor processor = new StringProcessor();
+            processor.findLongestLine();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}

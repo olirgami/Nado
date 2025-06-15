@@ -1,0 +1,43 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+class SubstringFinder {
+    String content;
+    
+    public SubstringFinder() throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("C:\\Temp\\stringg.txt"));
+        this.content = "";
+        
+        while(sc.hasNextLine()) {
+            content += sc.nextLine() + "\n";
+        }
+        sc.close();
+    }
+    
+    public void findAndSave() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(new File("C:\\Temp\\output.txt"));
+        
+        String search = "Удача";
+        
+        if(content.contains(search)) {
+            writer.println("Подстрока '" + search + "' найдена");
+        } else {
+            writer.println("Подстрока '" + search + "' не найдена");
+        }
+        
+        writer.close();
+    }
+}
+
+public class ekzam {
+    public static void main(String[] args) {
+        try {
+            SubstringFinder finder = new SubstringFinder();
+            finder.findAndSave();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
